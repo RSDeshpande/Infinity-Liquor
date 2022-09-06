@@ -1,0 +1,13 @@
+<template>
+    
+        <lightning-card  variant="Narrow"  title="Explore Beers" icon-name="custom:custom48">
+            <div class="slds-m-around_small">
+        <lightning-input  variant="standard" label="Search Beer" placeholder="Search for beer"
+        value={searchValue}
+        onchange={handleChange}></lightning-input></div>
+        <div class="slds-m-around_small">
+            <lightning-button variant="breand" label="Show Cart" onclick={handleShowCart}></lightning-button>
+        </div>
+    </lightning-card>
+    
+</template>

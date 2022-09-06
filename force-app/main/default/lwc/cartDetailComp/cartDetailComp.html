@@ -1,0 +1,96 @@
+<template>
+    <template if:true={showCart}>
+    <lightning-card  variant="Narrow"  title="Cart" icon-name="utility:cart">
+        <template if:true={cart} for:each={cart} for:item="item">
+        <div key={item.Id} class="slds-m-around_large">
+            <strong>Total Cart Amount :</strong> {totalAmount}<br/>
+            <strong>Cart Status: </strong>{item.Cart_Status__c}<br/>
+        </div>
+    </template>
+        <template if:true={cartItems}>
+        <div class="slds-grid slds-wrap slds-m-around_small">
+            <div class="slds-col slds-size_1-of-4 "><strong>Name</strong> </div>
+            <div class="slds-col slds-size_1-of-4 "><strong>Price</strong></div>
+            <div class="slds-col slds-size_1-of-4 "><strong>Quantity</strong> </div>
+        </div>
+        
+        <div>
+            <template for:each={cartItems} for:item="item">
+                <c-cart-item key={item.Id} item={item} ondelete={handleItemDelete}></c-cart-item>
+            </template>
+            
+        </div>
+    </template>
+    <div class="slds-m-top_small">
+        <lightning-button-group>
+
+            <lightning-button label="Continue Shopping"
+                variant="natural"
+                onclick={handleContinue}
+            ></lightning-button> 
+
+            <lightning-button label="Proceed Checkout"
+                variant="brand"
+                onclick={handleProceed}
+            ></lightning-button>
+
+        </lightning-button-group>
+    </div>
+    </lightning-card>
+    </template>
+
+    <div class="page-section page-main">
+        <template if:false={showCart}>
+            <div class="slds-m-top_small">
+                <lightning-button label="Add New Address" variant="brand"
+                    onclick={handleAddNewAddress} >
+                </lightning-button>
+            </div>
+            <div class="slds-grid slds-wrap ">
+                <div class="slds-col slds-size_1-of-2">
+                    <template if:true={totalAddress} for:each={addresses} for:item="addr">
+                        <c-address-comp key={addr.Id} address={addr} onaddress={handleDelivery}></c-address-comp>
+                    </template>
+                </div>
+                <div class="slds-col slds-size_1-of-2">
+                    <template if:true={selectedAddress}> 
+                        <lightning-card  title="Selected Address" icon-name="standard:address">
+                            <lightning-formatted-address
+                            city={selectedAddress.City__c}
+                            street={selectedAddress.Street__c}
+                            country={selectedAddress.Country__c}
+                            postal-code={selectedAddress.Postal_Code__c}
+                            province={selectedAddress.State__c}>
+                            </lightning-formatted-address>
+                        </lightning-card>
+                        <lightning-button variant="brand" label="Place Order" onclick={handlePlaceOrder}>
+                        </lightning-button>
+                    </template>
+                </div>
+            </div>
+        </template>
+    
+        <template if:false={totalAddress}>
+            <lightning-input  name="City__c" value= {addrr.City__c} label="City"  onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input  name="State__c" value= {addrr.State__c} label="State" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input  name="Country__c" value= {addrr.Country__c} label="Country" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input  name="Street__c" value= {addrr.Street__c} label="Street" onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input  name="Postal_Code__c" value= {addrr.Postal_Code__c} label="Postal Code" onchange={handleInputChange}>
+            </lightning-input>
+
+            <div class="slds-m-top_small">
+                <lightning-button label="Save Address" variant="brand"
+                    onclick={handleSaveNewAddress} >
+                </lightning-button>
+            </div>
+        </template>
+    </div>
+</template>

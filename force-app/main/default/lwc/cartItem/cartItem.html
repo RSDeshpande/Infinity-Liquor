@@ -1,0 +1,17 @@
+<template>
+    
+    <div class="slds-grid slds-wrap slds-m-around_small" >
+        <div class="slds-col slds-size_1-of-4 ">{item.Beer__r.Name}</div>
+        <div class="slds-col slds-size_1-of-4 ">{item.Beer__r.Price__c}</div>
+        <div class="slds-col slds-size_1-of-4 ">
+            <lightning-input  name="quantity"  value={item.Item_Quantity__c}></lightning-input>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-p-left_x-large slds-m-top_small">
+            <lightning-button value="Delete" label="Delete" 
+                    variant="destructive"
+                    onclick={handleDelete}>
+            </lightning-button>
+        </div>
+    </div>
+    
+</template>
